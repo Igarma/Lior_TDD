@@ -2,7 +2,7 @@
 
 use PHPUnit\Framework\TestCase;
 
-class TweerCotrollerTest extends TestCase {
+class TweetControllerTest extends TestCase {
 
     /** @test */
     public function userCanSaveATweet(){
@@ -34,9 +34,6 @@ class TweerCotrollerTest extends TestCase {
 
         // espero que el tweet tingui el auto i el contingut passat
 
-
-
-        
     }
 
 }

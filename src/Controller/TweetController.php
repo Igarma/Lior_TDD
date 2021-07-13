@@ -4,6 +4,7 @@ namespace Twitter\Controller;
 
 use PDO;
 use Twitter\Http\Response;
+use Twitter\Model\TweetModel;
 
 class TweetController {
 
@@ -14,18 +15,10 @@ class TweetController {
     }
     
     public function  saveTweet(): Response {
-        $pdo = new PDO('mysql:host=localhost; dbname=tdd; charset=utf8', 'eric','EricPwd145', [
-            PDO::ATTR_ERRMODE  => PDO::ERRMODE_EXCEPTION
-        ]);
 
-        $query = $pdo->prepare("INSERT INTO tweet SET 
-            content    = :content,
-            author     = :author,
-            created_at = NOW()");
-        $query->execute([
-            'content'  => $_POST['content'],
-            'author'   => $_POST['author']
-        ]);
+        $model = new TweetModel($this->pdo);
+        $model->save($_POST['author'], $_POST['content']);
+
         return new Response('',  ['Location' =>'/'], 302);
     }
 }
