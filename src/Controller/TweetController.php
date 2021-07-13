@@ -2,17 +2,14 @@
 
 namespace Twitter\Controller;
 
-use PDO;
 use Twitter\Http\Response;
 use Twitter\Model\TweetModel;
 
 class TweetController {
 
-    protected $pdo;
     protected $model;
 
-    public function __construct(PDO $pdo, TweetModel $model){
-        $this->pdo = $pdo;
+    public function __construct( TweetModel $model){
         $this->model = $model;
     }
     
