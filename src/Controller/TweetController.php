@@ -6,6 +6,12 @@ use PDO;
 use Twitter\Http\Response;
 
 class TweetController {
+
+    protected $pdo;
+
+    public function __construct(PDO $pdo){
+        $this->pdo = $pdo;
+    }
     
     public function  saveTweet(): Response {
         $pdo = new PDO('mysql:host=localhost; dbname=tdd; charset=utf8', 'eric','EricPwd145', [

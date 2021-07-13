@@ -19,7 +19,7 @@ class TweerCotrollerTest extends TestCase {
         $_POST['content'] = "El meu primer tweet";
 
         // quan el controller es cridat
-        $controller = new \Twitter\Controller\TweetController();
+        $controller = new \Twitter\Controller\TweetController($pdo);
         $response = $controller->saveTweet();
 
         // espero ser dirigit a /
