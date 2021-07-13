@@ -1,18 +1,13 @@
 <?php
 
-require_once __DIR__ . '/vendor/autoload.php';
 use Twitter\Http\Response;
+use Twitter\Controller\HelloController;
 
-$name =  $_GET['name'];
+require_once __DIR__ . '/vendor/autoload.php';
 
-$response = new Response();
+$controller = new HelloController();
 
-$response->setHeaders([
-    'Content-Type', 'text/html'
-]);
 
-$response->setStatusCode(200);
-$response->setContent("Bon dia $name");
-
+$response = $controller->Hello();
 
 $response->send();
