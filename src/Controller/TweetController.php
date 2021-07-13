@@ -9,15 +9,16 @@ use Twitter\Model\TweetModel;
 class TweetController {
 
     protected $pdo;
+    protected $model;
 
-    public function __construct(PDO $pdo){
+    public function __construct(PDO $pdo, TweetModel $model){
         $this->pdo = $pdo;
+        $this->model = $model;
     }
     
     public function  saveTweet(): Response {
 
-        $model = new TweetModel($this->pdo);
-        $model->save($_POST['author'], $_POST['content']);
+        $this->model->save($_POST['author'], $_POST['content']);
 
         return new Response('',  ['Location' =>'/'], 302);
     }

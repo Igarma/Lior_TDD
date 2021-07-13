@@ -1,5 +1,6 @@
 <?php
 
+use Twitter\Model\TweetModel;
 use PHPUnit\Framework\TestCase;
 
 class TweetControllerTest extends TestCase {
@@ -11,6 +12,7 @@ class TweetControllerTest extends TestCase {
             PDO::ATTR_ERRMODE  => PDO::ERRMODE_EXCEPTION
         ]);
         $pdo->query("DELETE FROM tweet");
+        $model = new TweetModel($pdo);
 
         
         // Tenim una Request POST a /tweet.php 
@@ -19,7 +21,7 @@ class TweetControllerTest extends TestCase {
         $_POST['content'] = "El meu primer tweet";
 
         // quan el controller es cridat
-        $controller = new \Twitter\Controller\TweetController($pdo);
+        $controller = new \Twitter\Controller\TweetController($pdo, $model);
         $response = $controller->saveTweet();
 
         // espero ser dirigit a /
