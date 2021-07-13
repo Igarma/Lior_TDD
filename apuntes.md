@@ -10,6 +10,7 @@
 - no s'escriu ni uns línia  que no ho demani un test.
 - No es fant nos tests fins que no passen tots els anteriors
 - No es codifca res més enllà de lo necessari per que le test pasi.
+- **Aillament dels tests**. un test no pot estar influenciat per la execució prèvia d'altres tests o d'ell mateix
 
 ## Estructura d'un test:
 - Given $\rightarrow$ Donat un estat o condicions inicials.
