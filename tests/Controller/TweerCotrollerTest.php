@@ -6,6 +6,12 @@ class TweerCotrollerTest extends TestCase {
 
     /** @test */
     public function userCanSaveATweet(){
+        // setup:  buidem la taula tweet
+        $pdo = new PDO('mysql:host=localhost; dbname=tdd; charset=utf8', 'eric','EricPwd145', [
+            PDO::ATTR_ERRMODE  => PDO::ERRMODE_EXCEPTION
+        ]);
+        $pdo->query("DELETE FROM tweet");
+
         
         // Tenim una Request POST a /tweet.php 
         // la Request conté els paràmetres autor i contingut
@@ -22,9 +28,7 @@ class TweerCotrollerTest extends TestCase {
         $this->assertEquals('/',$response->getHeaders()['Location']);
 
         // espero trovar un tweet a la base de dades
-        $pdo = new PDO('mysql:host=localhost; dbname=tdd; charset=utf8', 'eric','EricPwd145', [
-            PDO::ATTR_ERRMODE  => PDO::ERRMODE_EXCEPTION
-        ]);
+        
         $result = $pdo->query('SELECT t.* FROM tweet AS t');
         $this->assertEquals(1, $result->rowCount());
 
