@@ -33,4 +33,22 @@ class IndexTest extends TestCase{
         $contenHeader = $response->getHeaders()['Content-Type'] ?? null;
         $this->assertEquals('text/html', $contenHeader);
     }
+
+    /** @test */
+    public function testItWorksEvenIfNoNameInGet(){
+        // Given
+        $_GET = []; // buidem les superglobals
+
+        // When
+        $controller = new \Twitter\Controller\HelloController();
+        $response = $controller->Hello();
+        
+        // Then
+        $this->assertEquals("Bon dia a tots", $response->getContent());
+        // $this->assertEquals(200, $response->getStatusCode());
+
+        // $contenHeader = $response->getHeaders()['Content-Type'] ?? null;
+        // $this->assertEquals('text/html', $contenHeader);
+
+    }
 }

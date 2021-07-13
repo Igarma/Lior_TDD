@@ -12,8 +12,8 @@ class TweetControllerTest extends TestCase {
             PDO::ATTR_ERRMODE  => PDO::ERRMODE_EXCEPTION
         ]);
         $pdo->query("DELETE FROM tweet");
-        $model = new TweetModel($pdo);
 
+        $model = new TweetModel($pdo);
         
         // Tenim una Request POST a /tweet.php 
         // la Request conté els paràmetres autor i contingut
@@ -29,7 +29,7 @@ class TweetControllerTest extends TestCase {
         $this->assertArrayHasKey('Location', $response->getHeaders());
         $this->assertEquals('/',$response->getHeaders()['Location']);
 
-        // espero trovar un tweet a la base de dades
+        // espero trobar un tweet a la base de dades
         
         $result = $pdo->query('SELECT t.* FROM tweet AS t');
         $this->assertEquals(1, $result->rowCount());
