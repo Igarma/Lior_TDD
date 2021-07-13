@@ -1,7 +1,18 @@
 <?php
 
-$name = $_GET['name'];
+require_once __DIR__ . '/vendor/autoload.php';
+use Twitter\Http\Response;
 
-header('Content-Type', 'text/html');
-http_response_code(200);
-echo "hello $name";
+$name =  $_GET['name'];
+
+$response = new Response();
+
+$response->setHeaders([
+    'Content-Type', 'text/html'
+]);
+
+$response->setStatusCode(200);
+$response->setContent("Bon dia $name");
+
+
+$response->send();
