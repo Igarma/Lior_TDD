@@ -1,0 +1,8 @@
+
+<phpunit backupGlobals="true" colors="true">
+  <testsuites>
+    <testsuite name="My_Tests">
+        <directory>tests/*.php files</directory>
+	    </testsuite>
+	</testsuites>
+</phpunit>
