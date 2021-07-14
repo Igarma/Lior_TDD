@@ -76,4 +76,16 @@ class TweetControllerTest extends TestCase {
         $this->assertEquals(400, $response->getStatusCode());
         $this->assertEquals("Manca el camp content", $response->getContent());
     }
+
+    /**   @test    */
+    public function itCanNotSaveATweetWhithoutContentEtWhithoutAuthor(){
+        // Tsense author i sense content 
+
+        // al cridar al controlador
+        $response = $this->controller->saveTweet();
+
+        // espero una pagina d'error
+        $this->assertEquals(400, $response->getStatusCode());
+        $this->assertEquals("Manquen els camps author, content", $response->getContent());
+    }    
 }
