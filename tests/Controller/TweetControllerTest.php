@@ -1,6 +1,7 @@
 <?php
 
 use PDO;
+use Twitter\Http\Request;
 use Twitter\Model\TweetModel;
 use PHPUnit\Framework\TestCase;
 use Twitter\Controller\TweetController;
@@ -21,9 +22,7 @@ class TweetControllerTest extends TestCase {
         
         // setup:  buidem la taula tweet
         $this->pdo->query("DELETE FROM tweet");
-        //netegem les globals
-        $_POST=[];
-        $_GET=[];
+
     }
 
     /** @test */
@@ -32,11 +31,16 @@ class TweetControllerTest extends TestCase {
 
         // Tenim una Request POST a /tweet.php 
         // la Request conté els paràmetres autor i contingut
-        $_POST['author'] = 'Eric';
-        $_POST['content'] = "El meu primer tweet";
+        // $_POST['author'] = 'Eric';
+        // $_POST['content'] = "El meu primer tweet";
+
+        $request = new Request([
+            'author' => 'Eric',
+            'content' => 'El meu primer tweer'
+        ]);
 
         // quan el controller es cridat
-        $response = $this->controller->saveTweet();
+        $response = $this->controller->saveTweet($request);
 
         // espero ser dirigit a /
         $this->assertEquals(302, $response->getStatusCode());
@@ -65,10 +69,10 @@ class TweetControllerTest extends TestCase {
     */
     public function itCanNotSaveATweetWhitMissingFields($postData, $errorMessage){
         //1:34:34 https://www.youtube.com/watch?v=h3_HzMgv1lQ&t=3685s
-        $_POST = $postData;
+        $request = new Request($postData);
 
         // al cridar al controlador
-        $response = $this->controller->saveTweet();
+        $response = $this->controller->saveTweet($request);
 
         // espero una pagina d'error
         $this->assertEquals(400, $response->getStatusCode());
