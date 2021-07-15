@@ -76,41 +76,4 @@ class TweetControllerTest extends TestCase {
 
     }
 
-    /**   @test    */
-    public function itCanNotSaveATweetWhithoutAuthor(){
-        // Tenim $_POST però sense author 
-        $_POST['content'] = "Tweet de prova";
-
-        // al cridar al controlador
-        $response = $this->controller->saveTweet();
-
-        // espero una pagina d'error
-        $this->assertEquals(400, $response->getStatusCode());
-        $this->assertEquals("Manca el camp author", $response->getContent());
-    }
-
-    /**   @test    */
-    public function itCanNotSaveATweetWhithoutContent(){
-        // Tenim $_POST però sense content 
-        $_POST['author'] = "Eric";
-
-        // al cridar al controlador
-        $response = $this->controller->saveTweet();
-
-        // espero una pagina d'error
-        $this->assertEquals(400, $response->getStatusCode());
-        $this->assertEquals("Manca el camp content", $response->getContent());
-    }
-
-    /**   @test    */
-    public function itCanNotSaveATweetWhithoutContentEtWhithoutAuthor(){
-        // Tsense author i sense content 
-
-        // al cridar al controlador
-        $response = $this->controller->saveTweet();
-
-        // espero una pagina d'error
-        $this->assertEquals(400, $response->getStatusCode());
-        $this->assertEquals("Manquen els camps author, content", $response->getContent());
-    }    
 }
