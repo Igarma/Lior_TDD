@@ -5,6 +5,8 @@ namespace Twitter\Controller;
 use Twitter\Http\Request;
 use Twitter\Http\Response;
 use Twitter\Model\TweetModel; 
+use Twitter\Validation\RequestValidator;
+
 
 class TweetController {
 
@@ -16,7 +18,9 @@ class TweetController {
     }
     
     public function  saveTweet(Request $request): Response {
-        if($response = $this->validateFields($request)){
+
+        $validator = new RequestValidator();
+        if($response = $validator->validateFields($request, $this->requiredFields)){
             return $response;
         }
 
@@ -25,25 +29,5 @@ class TweetController {
         return new Response('',  ['Location' =>'/'], 302);
     }   
 
-    protected function validateFields(Request $request): ?Response {
-        $invalidfields = [];
-        foreach($this->requiredFields as $field){
-            if($request->get($field) === null){
-                $invalidfields[] = $field;
-            }
-        }
-        if(empty($invalidfields)){
-            return null;
-        }
-        if(count($invalidfields) === 1){
-            $field = $invalidfields[0];
-            return new Response("Manca el camp $field",['Content-Type' => 'text/html'],400);
-        }
 
-        return new Response(
-            sprintf('Manquen els camps %s',implode(', ',$invalidfields)),
-            ['Content-Type' => 'text/html'],
-            400
-        );
-    }
 }

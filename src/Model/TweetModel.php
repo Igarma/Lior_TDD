@@ -4,6 +4,7 @@ namespace Twitter\Model;
 
 use PDO;
 
+
 class TweetModel {
     protected $pdo;
 

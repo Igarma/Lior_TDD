@@ -2,6 +2,7 @@
 
 use PDO;
 use Twitter\Http\Request;
+use Twitter\Http\Response;
 use Twitter\Model\TweetModel;
 use PHPUnit\Framework\TestCase;
 use Twitter\Controller\TweetController;
@@ -73,6 +74,7 @@ class TweetControllerTest extends TestCase {
 
         // al cridar al controlador
         $response = $this->controller->saveTweet($request);
+
 
         // espero una pagina d'error
         $this->assertEquals(400, $response->getStatusCode());
