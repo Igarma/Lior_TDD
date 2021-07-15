@@ -51,6 +51,31 @@ class TweetControllerTest extends TestCase {
 
     }
 
+    public function missingFieldsProvider(){
+        //[ parametres a passar a un test]
+        return [
+            [['content' => "Test of tweet"],"Manca el camp author"]  ,
+            [['author' => "Eric"]          ,"Manca el camp content"] ,
+            [[]                            ,"Manquen els camps author, content"]
+        ];
+
+    }
+    /**  @test
+     *   @dataProvider missingFieldsProvider
+    */
+    public function itCanNotSaveATweetWhitMissingFields($postData, $errorMessage){
+        //1:34:34 https://www.youtube.com/watch?v=h3_HzMgv1lQ&t=3685s
+        $_POST = $postData;
+
+        // al cridar al controlador
+        $response = $this->controller->saveTweet();
+
+        // espero una pagina d'error
+        $this->assertEquals(400, $response->getStatusCode());
+        $this->assertEquals($errorMessage, $response->getContent());
+
+    }
+
     /**   @test    */
     public function itCanNotSaveATweetWhithoutAuthor(){
         // Tenim $_POST però sense author 
